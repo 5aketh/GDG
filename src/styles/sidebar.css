@@ -14,7 +14,6 @@ body {
     border-right: 1px solid #ccc;
     height: 100vh;
     box-sizing: border-box;
-    position: sticky;
     transition: transform 0.3s ease-in-out;
     transform: translateX(0);
 }

@@ -1,13 +1,8 @@
 .weather-container {
     font-family: sans-serif;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
     width: 40vw;
     height: auto;
     margin: 0;
-    /* background-color: #424242; */
 }
 
 .main-weather-info {

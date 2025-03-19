@@ -1,6 +1,8 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function Sidebar() {
+    const { id } = useParams();
     useEffect(() => {
         let menu_button = document.querySelector("#menub");
         let homeElement = document.getElementById("home"); // Store the element itself
@@ -38,7 +40,7 @@ export default function Sidebar() {
                     
                     <ul style={{paddingTop: "2vw"}}>
                         <li>
-                            <a href="/home">
+                            <a href={`/${id}/home`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" height="2vw" viewBox="0 -960 960 960" width="2vw" fill="#fff">
                                     <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
                                 </svg>
@@ -46,7 +48,7 @@ export default function Sidebar() {
                             </a>
                         </li>
                         <li>
-                            <a href="/#">
+                            <a href={`/${id}/shop`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" height="2vw" viewBox="0 -960 960 960" width="2vw" fill="#fff">
                                     <path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/>
                                 </svg>
@@ -54,7 +56,7 @@ export default function Sidebar() {
                             </a>
                         </li>
                         <li>
-                            <a href="/#">
+                            <a href={`/${id}/support`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" height="2vw" viewBox="0 -960 960 960" width="2vw" fill="#fff">
                                     <path d="M440-120v-80h320v-284q0-117-81.5-198.5T480-764q-117 0-198.5 81.5T200-484v244h-40q-33 0-56.5-23.5T80-320v-80q0-21 10.5-39.5T120-469l3-53q8-68 39.5-126t79-101q47.5-43 109-67T480-840q68 0 129 24t109 66.5Q766-707 797-649t40 126l3 52q19 9 29.5 27t10.5 38v92q0 20-10.5 38T840-249v49q0 33-23.5 56.5T760-120H440Zm-80-280q-17 0-28.5-11.5T320-440q0-17 11.5-28.5T360-480q17 0 28.5 11.5T400-440q0 17-11.5 28.5T360-400Zm240 0q-17 0-28.5-11.5T560-440q0-17 11.5-28.5T600-480q17 0 28.5 11.5T640-440q0 17-11.5 28.5T600-400Zm-359-62q-7-106 64-182t177-76q89 0 156.5 56.5T720-519q-91-1-167.5-49T435-698q-16 80-67.5 142.5T241-462Z"/>
                                 </svg>

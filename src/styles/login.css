@@ -59,8 +59,7 @@ a {
     display: inline-block;
     width: 49%;
     text-decoration: none;
-&:hover,
-&:active {
+&:hover, &:active {
     color: rgb(95, 60, 60);
     }
 
