@@ -1,7 +1,27 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function Sidebar() {
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+            });
+            
+            if (response.ok){
+                console.log(response.message);
+                navigate("/login");
+            } else {
+                console.error("Logout failed:", response.message);
+            }
+          } catch (error) {
+            console.error("Logout failed:", error);
+          }
+    }
+
     const { id } = useParams();
     useEffect(() => {
         let menu_button = document.querySelector("#menub");
@@ -72,7 +92,7 @@ export default function Sidebar() {
                             </a>
                         </li>
                         <li>
-                            <a href="/#">
+                            <a href="/login" onClick={handleLogout}>
                                 <svg xmlns="http://www.w3.org/2000/svg" height="2vw" viewBox="0 -960 960 960" width="2vw" fill="#fff">
                                     <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/>
                                 </svg>

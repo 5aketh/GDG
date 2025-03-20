@@ -23,6 +23,12 @@
     margin: 0 auto;
 }
 
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
 img{
     height: 30%;
     width: 100%;
