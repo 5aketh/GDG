@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
@@ -9,6 +9,26 @@ export default function Login() {
 
     const isEmail = (input) => /\S+@\S+\.\S+/.test(input);
     const isPhone = (input) => /^\d{10}$/.test(input);
+
+    useEffect(() => {
+        const checkSession = async () => {
+            try {
+                const response = await fetch ("http://localhost:5000/verify-session", {
+                    method:"GET",
+                    credentials:"include",
+                });
+
+                if (!response.ok){
+                    navigate("/");  // redirects to login if no session
+                }
+            } catch (error) {
+                console.error("Session verification failed: ", error);
+                navigate("/")
+            }
+        };
+
+        checkSession()
+      }, [navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,6 +41,7 @@ export default function Login() {
         try {
             const response = await fetch("http://localhost:5000/login", {
                 method: "POST",
+                credentials:"include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                 loginType: isEmail(identifier) ? "email" : "phone",
@@ -33,13 +54,14 @@ export default function Login() {
             console.log("Response:", data.message);
 
             if (response.ok) {
-            //   localStorage.setItem("userUID", data.uid);
+                localStorage.setItem("userUID", data.uid);
                 navigate(`/user/${data.uid}/home`);   // navigates to home page on successful login
             } else {
                 setError(data.message);
             }
 
         } catch (error) {
+            console.log(error)
             setError("Failed to log in. Please try again.");
         }
 

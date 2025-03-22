@@ -34,7 +34,7 @@ router.post("/signup", async (req, res) => {
       uid: newUser.uid,
     });
 
-    res.status(201).json({ message: "User signed up successfully!", uid: newUser.uid });
+    res.status(201).json({ message: "User signed up successfully!"});
   } catch (error) {
     res.status(400).json({ error: error.message, message: "Failed to sign up" });
   }
@@ -44,9 +44,9 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { loginType, identifier, password } = req.body;     // login with email or phone
 
+  let email = identifier;
+  
   try {
-    let email = identifier;
-
     if (loginType === "phone"){
       const snapshot = await db.collection("users")
           .where("phone", "==", identifier)
@@ -67,7 +67,7 @@ router.post("/login", async (req, res) => {
     const idToken = await userCredential.user.getIdToken();
 
     // Create session cookie with the ID token
-    const expiresIn = 60 * 60 * 24 * 5 // 5 days
+    const expiresIn = 60 * 60 * 24 * 5 * 1000// 5 days
     const sessionCookie = await auth.createSessionCookie(idToken, { expiresIn });
 
     // Store session in cookie
@@ -77,7 +77,7 @@ router.post("/login", async (req, res) => {
       secure: true,
     });
 
-    res.status(200).json({ message: "User logged in successfully!" });
+    res.status(200).json({ message: "User logged in successfully!", uid: userCredential.user.uid });
 
   } catch (error) {
     res.status(401).json({ error: error.message, message: "Invalid login credentials" });

@@ -22,7 +22,7 @@ const verifySession = async (req, res, next) => {
 };
 
 // Protected route
-router.get("/home", verifySession, async (req, res) => {
+router.get("/verify-session", verifySession, async (req, res) => {
   const userId = req.user.uid;
   const userDoc = await auth.getUser(userId);
   res.json({
