@@ -1,0 +1,131 @@
+.chat-container {
+    width: 30vw;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.7);
+}
+
+.chat-header {
+    background-color: #4f7531;
+    color: #fff;
+    height: 3.5vh;
+    justify-content: center;
+    padding: 2vw;
+    padding-bottom: 5vh;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.minimize {
+    justify-self: 'right';
+    background-color: #4f7531;  
+    width: auto;
+    height: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 15vw;
+    font-size: 3vw;
+}
+
+.minimize:hover {
+    background-color: #4f7531;
+}
+
+.chat-box {
+    display: flex;
+    height: 55vh;
+    flex-direction: column;
+    flex: 1;
+    padding: 20px;
+    background: #f8f8ed;
+    color: #333;
+    overflow-y: auto;
+}
+
+.user-message {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    max-width: 15vw;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 30px;
+    border-radius: 5px;
+    background-color: #81C784;
+}
+
+.bot-message {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    max-width: 15vw;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 30px;
+    border-radius: 5px;
+    background-color: #C5E1A5;
+    align-self: flex-start;
+}
+
+.bot-profile {
+    width: auto;
+    height: 30px;
+    justify-self: start;
+    margin-top: 5px;
+    border: 1px solid;
+    border-radius: 50%;
+}
+
+.profile {
+    width: auto;
+    height: 30px;
+    justify-self: end;
+    margin-top: 5px;
+    border: 1px solid;
+    border-radius: 50%;
+}
+
+.chat-input-container {
+    display: flex;
+    padding-top: 2vh;
+    height: auto;
+    flex-direction: row;
+    border-top: 2px solid #3d3e3d;
+    background-color: #f8f8ed;
+}
+
+.chat-input {
+    flex: 1;
+    width: 20vw;
+    outline: none;
+    font-size: auto;
+    background-color: #f8f8ed;
+}
+
+.send-btn, .voice-btn, .attach-btn {
+    border-radius: 0 0 0 0;
+    background-color: #f8f8ed;
+    width: 4vw;
+    cursor: pointer;
+}
+
+.send-btn:hover, .voice-btn:hover, .attach-btn:hover {
+    background-color: #f8f8ed;
+}
+
+.file-input {
+    display: none;
+}
+
+.minimized {
+    height: 0;
+}
+
+.maximized {
+    height: initial;
+}
+
+.move {
+    position: fixed;
+    right: 0px; bottom: 0px;
+}
