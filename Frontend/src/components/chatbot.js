@@ -5,14 +5,43 @@ export default function Chatbot() {
     const messageInputRef = useRef(null);
     const fileInputRef = useRef(null);
 
-    const sendMessage = () => {
+    const sendMessage = async () => {
         const message = messageInputRef.current.value.trim();
-        if (message) {
-            appendMessage(message);
-            messageInputRef.current.value = '';
-            // getBotResponse(message);
+        // if (message) {
+        //     appendMessage(message);
+        //     messageInputRef.current.value = '';
+        //     // getBotResponse(message);
+        // }
+        // appendReply(getBotResponse(message))
+
+        if (!message) return;   // prevents sending empty message
+
+        appendMessage(message);
+        messageInputRef.current.value = '';
+
+        try {
+            // Send the message to the backend
+            const response = await fetch('http://localhost:5000/api/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify({ message })
+            });
+
+            if (!response.ok) {
+                console.error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            appendReply(data.response);
+
+        } catch (error) {
+            console.error('Error sending message:', error);
+            appendReply('Failed to get a response. Please try again.');
         }
-        appendReply(getBotResponse(message))
     };
 
     const handleFile = () => {
