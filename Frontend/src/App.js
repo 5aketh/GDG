@@ -18,9 +18,9 @@ function App(){
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/create" element={<Create />} />
-        <Route path=":id/home" element={<Home />} />
-        <Route path=":id/support" element={<Support />} />
-        <Route path=":id/shop" element={<Shop />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/support" element={<Support />} />
+        <Route path="/shop" element={<Shop />} />
       </Routes>
     </div>
   )
