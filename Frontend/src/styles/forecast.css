@@ -1,0 +1,26 @@
+#forecast_div {
+    float: right;
+    display: flex;
+    flex-direction: row;
+    padding: 1vw;
+    padding-top: 8vh;
+    padding-left: 0vw;
+    height: 34vh;
+}
+
+.day-div {
+    padding: 1vw;
+    margin: 0.5vw;
+    border: solid;
+    width: 10vw;
+    height: 28vh;
+    border-radius: 8px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(154, 154, 154);
+}
+
+#forecast-label {
+    font-style: bold;
+}
