@@ -1,40 +1,22 @@
 import express from "express";
-import { client, endpoint } from "../vertexAIconfig.js";
+import { getGeminiResponse } from "../geminiService.js";
 
 const router = express.Router();
 
-router.post("/chatbot", async (req, res) => {
-    const { message } = req.body;
+router.post("/gemini", async (req, res) => {
+  const { prompt } = req.body;
 
-    if (!message) {
-        return res.status(400).json({ error: "Message is required" });
-    }
+  if (!prompt) {
+    return res.status(400).json({ error: "Prompt is required" });
+  }
 
-    try {
-        // Prepare the payload for the model
-        const instance = { content: message };
-        const request = {
-            endpoint: endpoint,
-            instances: [instance],
-            parameters: {
-                temperature: 0.7,
-                topP: 0.9,
-                maxTokens: 500,
-            },
-
-        };
-
-        // Make the prediction call
-        const [response] = client.predict(request);   // await needed here?
-        
-        const prediction = response.predictions[0]?.content || "No response";
-        
-        res.status(200).json({ reply: prediction });
-
-    } catch (error) {
-        console.error("Error calling Vertex AI:", error);
-        res.status(500).json({ error: "Failed to generate response" });
-    }
+  try {
+    const response = await getGeminiResponse(prompt);
+    res.json({ response });
+  } catch (error) {
+    console.error("Error fetching Gemini response:", error);
+    res.status(500).json({ error: "Failed to get response from Gemini" });
+  }
 });
 
 export default router;

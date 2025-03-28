@@ -21,13 +21,13 @@ export default function Chatbot() {
 
         try {
             // Send the message to the backend
-            const response = await fetch('http://localhost:5000/api/chatbot', {
+            const response = await fetch('http://localhost:5000/api/gemini', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 credentials: 'include',
-                body: JSON.stringify({ message })
+                body: JSON.stringify({ prompt: message })
             });
 
             if (!response.ok) {
