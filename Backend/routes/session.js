@@ -1,35 +1,32 @@
-import express from "express";
-import { auth } from "../firebaseConfig.js";
+import session from 'express-session';
+import dotenv from "dotenv";
 
-const router = express.Router();
+dotenv.config();
 
-// Middleware to verify session
-const verifySession = async (req, res, next) => {
-  const sessionCookie = req.cookies.session || "";
-  
-  if (!sessionCookie) {
-    return res.status(401).json({ message: "Unauthorized: No session" });
+const sessionConfig = session({
+  secret: process.env.SESSION_SECRET || "supersecretkey",    // Use a secret key for encryption
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,           // Prevent client-side access
+    secure: false,            // Set to true in production (with HTTPS)
+    maxAge: 1000 * 60 * 60 * 24 * 7   // 1 week expiration time
   }
-
-  try {
-    // decode the session cookie to get user data
-    const decodeClaims = await auth.verifySessionCookie(sessionCookie, true);
-    req.user = decodeClaims;
-    next(); // Continue to the next middleware
-  } catch (error) {
-    res.status(401).json({ message: "Invalid session" });
-  }
-};
-
-// Protected route
-router.get("/verify-session", verifySession, async (req, res) => {
-  const userId = req.user.uid;
-  const userDoc = await auth.getUser(userId);
-  res.json({
-    uid: userDoc.uid,
-    email: userDoc.email,
-    displayName: userDoc.displayName,
-  });
 });
 
-export default router;
+export default sessionConfig;
+
+
+
+// // Protected route
+// router.get("/verify-session", verifySession, async (req, res) => {
+//   const userId = req.user.uid;
+//   const userDoc = await auth.getUser(userId);
+//   res.json({
+//     uid: userDoc.uid,
+//     email: userDoc.email,
+//     displayName: userDoc.displayName,
+//   });
+// });
+
+// export default router;

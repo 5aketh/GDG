@@ -1,10 +1,7 @@
 import express from "express";
-import { auth, db } from "../firebaseConfig.js";
+import { auth, db } from "../config/firebaseConfig.js";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const router = express.Router();
 router.use(cookieParser());
@@ -32,6 +29,7 @@ router.post("/signup", async (req, res) => {
       email,
       phone,
       uid: newUser.uid,
+      createdAt : new Date()
     });
 
     res.status(201).json({ message: "User signed up successfully!"});
@@ -74,7 +72,7 @@ router.post("/login", async (req, res) => {
     res.cookie("session", sessionCookie, {
       maxAge: expiresIn,
       httpOnly: true,
-      secure: true,
+      secure: false,
     });
 
     res.status(200).json({ message: "User logged in successfully!", uid: userCredential.user.uid });

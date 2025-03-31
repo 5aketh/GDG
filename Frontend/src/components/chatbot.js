@@ -1,9 +1,29 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
+import axios from "axios";
 
 export default function Chatbot() {
     const chatBoxRef = useRef(null);
     const messageInputRef = useRef(null);
     const fileInputRef = useRef(null);
+
+    useEffect(() => {
+        const fetchChats = async () => {
+            try {
+                const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/chat/history`, { withCredentials: true });
+                displayHistory(res.data.chats);
+            } catch (error) {
+                // console.error('Failed to load chat history', error);
+            }
+        };
+        fetchChats();
+    });
+
+    const displayHistory = (chatHistory) => {
+        chatHistory.forEach((chat) => {
+            appendMessage(chat.messages[0].text);  // User message
+            appendReply(chat.messages[1].text);    // Bot reply
+        });
+    };
 
     const sendMessage = async () => {
         const message = messageInputRef.current.value.trim();
@@ -15,26 +35,14 @@ export default function Chatbot() {
 
         try {
             // Send the message to the backend
-            const response = await fetch('http://localhost:5000/api/gemini', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-                body: JSON.stringify({ prompt: message })
-            });
-
-            if (!response.ok) {
-                console.error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-
-            appendReply(data.response);
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/chat/send`, {
+                message: message
+            }, { withCredentials: true });
+            appendReply(response.data.response);
 
         } catch (error) {
-            console.error('Error sending message:', error);
-            appendReply('Failed to get a response. Please try again.');
+            // console.error('Error sending message:', error);
+            appendReply(error.response.data.message);
         }
     };
 
@@ -105,41 +113,6 @@ export default function Chatbot() {
     const handleVoice = ()=>{
       console.log("voice button clicked");
     }
-
-    // function getBotResponse(userInput) {
-    //     userInput = userInput.toLowerCase();
-      
-    //     if (userInput.includes("hello") || userInput.includes("hi") || userInput.includes("hey")) {
-    //       return "Hello there! How can I help you?";
-    //     } else if (userInput.includes("how are you")) {
-    //       return "As a bot, I don't have feelings, but I'm functioning well!";
-    //     } else if (userInput.includes("what is your name")) {
-    //       return "I'm a AgroBot, your Agricultural Assistant";
-    //     } else if (userInput.includes("bye") || userInput.includes("goodbye")) {
-    //       return "Goodbye! Have a great day!";
-    //     } else if (userInput.includes("help")) {
-    //       return "I can answer general questions. Try asking me something!";
-    //     } else if (userInput.includes("time")) {
-    //         const now = new Date();
-    //         return "The current time is: " + now.toLocaleTimeString();
-    //     } else if (userInput.includes("date")) {
-    //         const now = new Date();
-    //         return "Today's date is: " + now.toLocaleDateString();
-    //     } else if (userInput.includes("weather")) {
-    //         return "Look at the left side for weather related details.";
-    //     }
-    //      else if (userInput.includes("search for") || userInput.includes("what is")  || userInput.includes("what are")) {
-    //       const searchTerm = userInput.replace("search for", "").trim();
-    //       if(searchTerm){
-    //         return `I cannot perform actual searches, but you can use a search engine for that.`;
-    //       } else {
-    //         return "Please specify what you want to search for.";
-    //       }
-    //     }
-    //     else {
-    //       return "I'm sorry, I don't understand. Could you please rephrase your question?";
-    //     }
-    //   }
 
     function minimize(){
         const stat = document.getElementById("minimize");
