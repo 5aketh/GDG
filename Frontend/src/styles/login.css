@@ -1,72 +1,339 @@
-.loginbody {
-    font-family: Arial, sans-serif;
-    background-color: #fff;
-    display: flex;
-    float: right;
-    justify-content: center;
-    align-items: center;
-    height: 95vh;
-    margin: 0;
-}
+/* ==========================================================================
+    Base Styles
+    ========================================================================== */
 
-.container {
-    width: 30vw;
-    height: 90vh;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #ecf7da;
-    margin: 0 auto;
-}
-
-.error {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-img{
-    height: 30%;
-    width: 100%;
-}
-
-h2 {
-    text-align: center;
-}
-
-input[type="text"], input[type="password"] {
-    width: 93%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    width: 49%;
-    padding: 10px;
-    background-color: #97d197;
-    color: white;
-    border: none;
-    border-radius: 40px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #6a8a6a;
-}
-
-a {
-    color: black;
-    display: inline-block;
-    width: 49%;
-    text-decoration: none;
-&:hover, &:active {
-    color: rgb(95, 60, 60);
+    :root {
+        --primary-color: #4CAF50; 
+        --primary-color-dark: #388E3C; 
+        --secondary-color: #8BC34A; 
+        --background-dark: #212121; 
+        --background-light: #333333; 
+        --text-light: #F5F5F5; 
+        --text-muted: #BDBDBD; 
+        --border-color: #555555;
+        --box-shadow-light: rgba(0, 0, 0, 0.2);
+        --box-shadow-medium: rgba(0, 0, 0, 0.3);
+        --box-shadow-heavy: rgba(0, 0, 0, 0.4);
+        --input-bg: #424242; 
     }
+    
+    /* ==========================================================================
+        Login Body
+        ========================================================================== */
+    
+    .loginbody {
+        background-image: url('https://cdn.vectorstock.com/i/500p/04/50/abstract-liquid-gradient-background-fluid-green-vector-53440450.jpg'); /* Replace with your image URL */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        /* background-color: rgba(0, 0, 0, 0.8);  */
+        background-blend-mode: overlay;
+        display: flex;
+        min-height: 100vh; 
+        width: 100vw; 
+        padding: 30px;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box; 
+    }
+    
+    /* ==========================================================================
+        Left Side Content
+        ========================================================================== */
+    
+    .left-side {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 20px; 
+        color: var(--text-muted);
+        text-align: left;
+        opacity: 0;
+        transform: translateX(-30px);
+        animation: slideInLeft 0.8s ease-out forwards 0.3s;
+        max-width: 50%; 
+    }
+    
+    .left-side img {
+        max-width: 100%; 
+        margin-bottom: 20px;
+        opacity: 0.9;
+        filter: drop-shadow(2px 2px 4px var(--box-shadow-light));
+    }
+    
+    .left-side h1 {
+        font-family: "Audiowide", sans-serif;
+        font-size: 2.5em; /* Adjusted font size */
+        margin-bottom: 15px;
+        font-weight: 600;
+        line-height: 1.1;
+        color: var(--text-light);
+        letter-spacing: -0.01em;
+    }
+    
+    .left-side p {
+        font-size: 1em; /* Adjusted font size */
+        line-height: 1.6;
+        color: var(--text-muted);
+    }
+    
+    /* ==========================================================================
+        Right Side (Login Form)
+        ========================================================================== */
+    
+    .right-side {
+        width: 40vw;
+        height: 70vh;
+        max-width: 90%;
+        padding: 40px;
+        border-radius: 12px;
+        background-color: rgba(33, 33, 33, 0.9); 
+        box-shadow: 0 8px 20px var(--box-shadow-medium);
+        margin: 20px; 
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        border-top: 3px solid var(--primary-color);
+        box-sizing: border-box; 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: flex-start; 
+    }
+    
+    .right-side:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px var(--box-shadow-heavy);
+    }
+    
+    .right-side h2 {
+        text-align: left;
+        color: var(--text-light);
+        margin-bottom: 25px;
+        font-weight: 500;
+        font-size: 2em;
+        letter-spacing: -0.01em;
+    }
+    
+    /* ==========================================================================
+        Input Groups
+        ========================================================================== */
+    
+    .input-group {
+        position: relative;
+        margin-bottom: 25px; 
+    }
+    
+    
+    .input-group input[type="text"] {
+        width: calc(100% - 30px);
+        padding: 12px 12px 12px 40px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 1rem; 
+        color: var(--text-light);
+        background-color: var(--input-bg);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    
+    .password-input-group {
+        display: flex;
+        align-items: center;
+    }
+    
+    
+    .password-input-group input[type="password"] {
+        flex-grow: 1;
+        width: auto;
+        padding: 12px 12px 12px 40px; 
+        border: 1px solid var(--border-color);
+        border-radius: 6px 0 0 6px;
+        box-sizing: border-box;
+        font-size: 1rem; 
+        color: var(--text-light);
+        background-color: var(--input-bg);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .password-input-group input[type="password"]:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+    }
+    
+  
+    .password-input-group button.show-password-toggle {
+        width: 35px;
+        height: 40px;
+        padding: 0;
+        margin-left: 0.5vw;
+        background-color: var(--background-dark);
+        border: 1px solid var(--border-color);
+        /* border-left: none; */
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--text-muted);
+        font-size: 1rem; 
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .password-input-group button.show-password-toggle:hover {
+        background-color: var(--background-light);
+        color: var(--text-light);
+    }
+    
+    .password-input-group button.show-password-toggle:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        z-index: 1;
+    }
+    
+    
+    .input-group i {
+        position: absolute;
+        left: 10px; 
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 1rem; 
+        opacity: 0.7;
+        transition: color 0.3s ease;
+    }
+    
 
-}
+    .input-group input[type="text"]:focus,
+    .password-input-group input[type="password"]:focus {
+        color: var(--primary-color);
+    }
+    
+    
+    .input-group input[type="text"]:focus + i,
+    .password-input-group input[type="password"]:focus + i {
+        color: var(--primary-color);
+    }
+    
+    
+    .password-input-group input[type="password"] {
+        padding-right: 35px; 
+    }
+    
+    
+    .password-input-group button.show-password-toggle i {
+        position: relative;
+        font-size: 1.2rem; 
+        top: 2.3vh;
+        left: 0vw;
+        margin: 0; 
+    }
+    
+    /* ==========================================================================
+        Submit Button
+        ========================================================================== */
+    
+    .right-side button[type="submit"] {
+        width: 50%;
+        padding: 12px;
+        background-color: var(--primary-color);
+        color: var(--text-light);
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem; 
+        font-weight: 500;
+        float: right;
+        transition: background-color 0.3s ease, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        margin-top: auto;
+        box-shadow: 0 3px 7px var(--box-shadow-light);
+    }
+    
+    .right-side button[type="submit"]:hover {
+        background-color: var(--primary-color-dark);
+        transform: scale(1.02);
+        box-shadow: 0 4px 9px var(--box-shadow-medium);
+    }
+    
+    /* ==========================================================================
+        Form Footer Links
+        ========================================================================== */
+    
+    .form-footer {
+        margin-top: 25px; 
+        text-align: left;
+    }
+    
+    .form-footer a {
+        color: var(--secondary-color);
+        display: inline-block;
+        margin-right: 15px; 
+        font-size: 0.9rem; 
+        text-decoration: none;
+        transition: color 0.3s ease, transform 0.2s ease-in-out;
+    }
+    
+    .form-footer a:hover,
+    .form-footer a:active {
+        color: var(--primary-color);
+        text-decoration: underline;
+        transform: scale(1.02);
+    }
+    
+    /* ==========================================================================
+        Error Message
+        ========================================================================== */
+    
+    .error-message {
+        color: #FFEB3B;
+        margin-top: 8px; /* Reduced margin */
+        font-size: 0.85rem; /* Reduced font size */
+        text-align: left;
+    }
+    
+    /* ==========================================================================
+        Animations
+        ========================================================================== */
+    
+    @keyframes gradientAnimation {
+        0% {background-position: 0% 50%}
+        50% {background-position: 100% 50%}
+        100% {background-position: 0% 50%}
+    }
+    
+    @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    
+    /* ==========================================================================
+        Responsive Design
+        ========================================================================== */
+    
+    @media (max-width: 768px) {
+        .loginbody {
+            padding: 20px;
+            flex-direction: column; 
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 40px;
+        }
+    
+        .left-side {
+            width: 100%;
+            padding: 20px;
+            align-items: center;
+            text-align: center;
+            transform: translateX(0);
+            animation: none;
+            max-width: none;
+        }
+    
+        .right-side {
+            width: 95%;
+            margin: 20px auto;
+            padding: 30px;
+        }
+    }

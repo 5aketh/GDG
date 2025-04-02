@@ -1,55 +1,148 @@
 body {
-    font-family: sans-serif;
     margin: 0;
-    display: flex;
+    font-family: "Audiowide", sans-serif;
 }
 
-.sidebar {
-    display: flex;
-    width: 5.5vw;
-    background-color: #4f7531;
-    padding: 25%;
-    align-items: center;
-    flex-direction: column;
-    border-right: 1px solid #ccc;
+.background {
+    background-image: url('https://4kwallpapers.com/images/wallpapers/ios-13-stock-ipados-green-black-background-amoled-ipad-hd-2560x2560-793.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100vw;
     height: 100vh;
-    box-sizing: border-box;
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(0);
 }
 
-.sidebar ul {
-    list-style: none;
-    padding: 0;
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-large {
+    display: flex;
+    flex-direction: row;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 1em;
+}
+
+.curved-nav {
+    background-color: #4d806b;
+    padding: 0.5em 1em;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.curved-nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.7em 1.2em;
+    margin: 0 1em;
+    border-radius: 5px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.curved-nav a:hover {
+    color: #28a745;
+    background-color: #d1e7dd;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropbtn {
+    background: none;
+    border: none;
+    padding: 0.7em 1.2em;
+    margin: 0 1em;
+    color: #555;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.dropbtn:hover {
+    color: #28a745;
+    background-color: #d1e7dd;
+}
+
+.dropdown-content {
+    display: none;
+    width: max-content;
+    position: absolute;
+    top: 100%;
+    left: 20%;
+    right: 0;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    padding: 0.5em 0;
+    z-index: 1;
+    pointer-events: auto; /* Ensure the dropdown content is interactive */
+}
+
+.dropdown-content a {
+    color: #555;
+    padding: 0.8em 1.2em;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease, color 0.3s ease;
     margin: 0;
 }
 
-.sidebar li {
-    margin-bottom: 10px;
+.dropdown-content a:hover {
+    background-color: #eee;
+    color: #28a745;
 }
 
-.sidebar a {
-    text-decoration: none;
-    color: #333;
-    display: flex;
-    padding: 8px;
-    width: auto;
-    border-radius: 4px;
+/* Show the dropdown content when the dropdown is hovered */
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
-.sidebar a:hover {
-    background-color: #416129;
+/* Ensure the dropdown stays open when hovering over the content itself */
+.dropdown:hover .dropdown-content,
+.dropdown-content:hover {
+    display: block;
 }
 
-.menuText {
-    color: #fff;
-    padding-top: 5px;
-    padding-left: 20px;
-    float: right;
-    display: none;
-}
-
-.content {
-   flex-grow: 1;
-   padding: 20px;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header .container, .hero .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-content {
+        padding-right: 0;
+        margin-bottom: 2em;
+    }
+    .curved-nav {
+        margin-top: 1em;
+        padding: 0.5em;
+        flex-direction: column;
+        align-items: center;
+    }
+    .curved-nav a, .dropbtn {
+        margin: 0.5em 0;
+    }
+    .dropdown-content {
+        position: static;
+        transform: none;
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+    }
+    .dropdown:hover .dropdown-content {
+        display: none; /* Keep hidden by default on small screens */
+    }
 }
