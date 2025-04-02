@@ -9,8 +9,8 @@ export default function Home() {
             <div style={{display: 'flex', flexDirection: 'row'}}>
                 <Sidebar />
                 <div style={{paddingTop: "5vh", paddingLeft: "5vw"}}>
-                    <Weather />
-                    <Forecast />
+                    {/* <Weather /> */}
+                    {/* <Forecast /> */}
                 </div>
                 <div style={{position: 'absolute', left: '68vw', top: '15vh'}}>
                     <Chatbot />
