@@ -1,20 +1,20 @@
 export default function Weather() {
     async function getLiveWeather() {
         try {
-          // const ipResponse = await fetch('https://api.ipify.org?format=json');
-          // const ipData = await ipResponse.json();
-          // const ipAddress = ipData.ip;
+          const ipResponse = await fetch('https://api.ipify.org?format=json');
+          const ipData = await ipResponse.json();
+          const ipAddress = ipData.ip;
       
-          // const locationResponse = await fetch(`https://ipapi.co/${ipAddress}/json/`);
-          // const locationData = await locationResponse.json();
+          const locationResponse = await fetch(`https://ipapi.co/${ipAddress}/json/`);
+          const locationData = await locationResponse.json();
       
-          // if (!locationData.latitude || !locationData.longitude) {
-          //   throw new Error('Could not determine location from IP.');
-          // }
-      
-          const latitude = 17.3843;
-          const longitude = 78.4583;
-          const city = 'Hyderabad';
+          if (!locationData.latitude || !locationData.longitude) {
+            throw new Error('Could not determine location from IP.');
+          }
+          
+          const latitude = locationData.latitude;
+          const longitude = locationData.longitude;
+          const city = locationData.city;
       
           const weatherResponse = await fetch(
             `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,relative_humidity_2m,wind_speed_10m,wind_direction_10m&timezone=auto`

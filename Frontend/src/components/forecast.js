@@ -1,18 +1,21 @@
 export default function Forecast() {
     async function getForecast(position) {
-        // const ipResponse = await fetch('https://api.ipify.org?format=json');
-        // const ipData = await ipResponse.json();
-        // const ipAddress = ipData.ip;
+        const ipResponse = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipResponse.json();
+        const ipAddress = ipData.ip;
 
-        // const locationResponse = await fetch(`https://ipapi.co/${ipAddress}/json/`);
-        // const locationData = await locationResponse.json();
+        const locationResponse = await fetch(`https://ipapi.co/${ipAddress}/json/`);
+        const locationData = await locationResponse.json();
 
-        // if (!locationData.latitude || !locationData.longitude) {
-        //   throw new Error('Could not determine location from IP.');
-        // }
+        if (!locationData.latitude || !locationData.longitude) {
+          throw new Error('Could not determine location from IP.');
+        }
 
-        const latitude = 17.3843;
-        const longitude = 78.4583;
+        const latitude = locationData.latitude;
+        const longitude = locationData.longitude;
+
+        // const latitude = 17.3843;
+        // const longitude = 78.4583;
       
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto`;
       
