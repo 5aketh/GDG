@@ -86,13 +86,13 @@
     
     .right-side {
         width: 40vw;
-        height: 70vh;
+        /* height: 70vh; */
         max-width: 90%;
         padding: 40px;
         border-radius: 12px;
         background-color: rgba(33, 33, 33, 0.9); 
         box-shadow: 0 8px 20px var(--box-shadow-medium);
-        margin: 20px; 
+        /* margin: 20px;  */
         transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         border-top: 3px solid var(--primary-color);
         box-sizing: border-box; 

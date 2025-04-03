@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Create() {
-    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [error, setError] = useState('');
+    const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const navigate = useNavigate();
 
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
-    };
-
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
-    };
-
-    const handleConfirmPasswordChange = (event) => {
-        setConfirmPassword(event.target.value);
-    };
 
     const handleShowPasswordToggle = () => {
         setShowPassword(!showPassword);
@@ -29,40 +23,54 @@ function Create() {
         setShowConfirmPassword(!showConfirmPassword);
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        setError('');
+    // email validation
+    const validateEmail = (email) => {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return emailRegex.test(email);
+    };
+  
+    // phone number validation
+    const validatePhone = (phone) => {    
+      const phoneRegex = /^[6-9]\d{9}$/;
+      return phoneRegex.test(phone);
+    };
+  
+    // form validation (if any wrong input)
+    const validateForm = () => {
+      let errors = {};
+  
+      if (!name.trim()) errors.name = "Full Name is required";
+      if (!validateEmail(email)) errors.email = "Enter a valid Email";
+      if (!validatePhone(phone)) errors.phone = "Enter a valid 10-digit Phone number";
+      if (password.length < 6 || password.includes(" ")) errors.password = "Password must be at least 6 characters";
+      if (password !== confirmPassword) errors.confirmPassword = "Passwords do not match"
+  
+      setErrors(errors);
+      setIsSubmitting(false);
+      return Object.keys(errors).length === 0; // Returns true if no errors
+    };
+  
+    const handleSubmit = async (e) => {
         setIsSubmitting(true);
+        e.preventDefault();
 
-        if (!username) {
-            setError('Username is required.');
-            setIsSubmitting(false);
-            return;
-        }
-        if (!password) {
-            setError('Password is required.');
-            setIsSubmitting(false);
-            return;
-        }
-        if (!confirmPassword) {
-            setError('Confirm Password is required.');
-            setIsSubmitting(false);
-            return;
-        }
-        if (password !== confirmPassword) {
-            setError('Passwords do not match.');
-            setIsSubmitting(false);
-            return;
-        }
+        if (!validateForm()) return; // Disables submission if validation fails
 
-        // Simulate API call
+        const userData = { name, phone, email, password };
+
         try {
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            console.log('Simulated signup successful');
-            // Redirect or set user session
-        } catch (err) {
-            setError('Could not connect to the server.');
-            console.error('Signup error:', err);
+            const response = await axios.post( `${process.env.REACT_APP_BACKEND_URL}/auth/signup`,
+                userData,
+                { headers: { "Content-Type": "application/json" } }
+            );
+
+            if (response) {
+                navigate("/login"); // navigates to login page on successful signup
+            } else {
+                setErrors({ login: response.data.message || "Signup failed. Please try again." });
+            }
+        } catch (error) {
+            setErrors({ login: error.response?.data?.message || "An unexpected error occurred. Please try again later." });
         } finally {
             setIsSubmitting(false);
         }
@@ -83,18 +91,46 @@ function Create() {
                     <p>Create an account to join our platform.</p>
                 </div>
                 <div className="right-side">
-                    <h2 style={{ marginBottom: "10vh" }}>Sign Up</h2>
+                    <h2 style={{ marginBottom: "4vh" }}>Sign Up</h2>
+                    {errors.login && <p className="error">{errors.login}</p>}
                     <form onSubmit={handleSubmit}>
                         <div className="input-group">
                             <input
                                 type="text"
                                 id="username"
-                                placeholder="Username"
-                                value={username}
-                                onChange={handleUsernameChange}
+                                placeholder="Name"
+                                value={name}
+                                onChange = {(e) => setName(e.target.value)}
                                 required
                                 aria-label="Username"
                             />
+                            {errors.name && <p className="error">{errors.name}</p>}
+                            <i className="fa fa-user"></i>
+                        </div>
+                        <div className="input-group">
+                            <input
+                                type="text"
+                                id="email"
+                                placeholder="Email"
+                                value={email}
+                                onChange = {(e) => setEmail(e.target.value)}
+                                required
+                                aria-label="Email"
+                            />
+                            {errors.email && <p className="error">{errors.email}</p>}
+                            <i className="fa fa-user"></i>
+                        </div>
+                        <div className="input-group">
+                            <input
+                                type="text"
+                                id="phone"
+                                placeholder="Phone Number"
+                                value={phone}
+                                onChange = {(e) => setPhone(e.target.value)}
+                                required
+                                aria-label="Phone Number"
+                            />
+                            {errors.phone && <p className="error">{errors.phone}</p>}
                             <i className="fa fa-user"></i>
                         </div>
                         <div className="input-group password-input-group">
@@ -103,7 +139,7 @@ function Create() {
                                 id="password"
                                 placeholder="Password"
                                 value={password}
-                                onChange={handlePasswordChange}
+                                onChange = {(e) => setPassword(e.target.value)}
                                 required
                                 aria-label="Password"
                             />
@@ -127,13 +163,15 @@ function Create() {
                                 }
                             </button>
                         </div>
+                        {errors.password && <p className="error">{errors.password}</p>}
+
                         <div className="input-group password-input-group">
                             <input
                                 type={showConfirmPassword ? 'text' : 'password'}
                                 id="confirmPassword"
                                 placeholder="Confirm Password"
                                 value={confirmPassword}
-                                onChange={handleConfirmPasswordChange}
+                                onChange = {(e) => setConfirmPassword(e.target.value)}
                                 required
                                 aria-label="Confirm Password"
                             />
@@ -157,7 +195,7 @@ function Create() {
                                 }
                             </button>
                         </div>
-                        {error && <p className="error-message">{error}</p>}
+                        {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <div className="form-footer" style={{ marginRight: '20px' }}>
                                 <a href="/forgot-password">Forgot Password?</a>
