@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import Sidebar from './sidebar';
 
 export default function Shop() {
@@ -17,7 +16,6 @@ export default function Shop() {
             description: 'Organic fertiliser for better and organic yield.',
         },
     ]);
-    const [purchases, setPurchases] = useState([]);
     const [overlayVisible, setOverlayVisible] = useState(false);
     const [newProduct, setNewProduct] = useState({
         name: '',
@@ -25,19 +23,6 @@ export default function Shop() {
         photo: '',
         description: '',
     });
-
-    useEffect(() => {
-        const fetchPurchases = async () => {
-            try {
-                const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/shop/history`, { withCredentials: true });
-                setPurchases(res.data.purchases);
-            } catch (error) {
-                console.error('Failed to load purchase history', error);
-            }
-        };
-
-        fetchPurchases();
-    }, []);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -84,6 +69,7 @@ export default function Shop() {
             <div style={{ position: 'sticky', left: 0, bottom: 0 }}>
                 <Sidebar />
             </div>
+            <div style={{ position: 'fixed', left: '3vw', top: '5vh' }}>
             <div>
                 <div className="search-container">
                     <input type="text" className="search-input" placeholder="Search products..." />
@@ -109,29 +95,7 @@ export default function Shop() {
                         ))}
                     </div>
                 </div>
-                {/* Purchase History */}
-            <div>
-                <h3>🛒 Purchase History</h3>
-                {purchases.length > 0 ? (
-                    purchases.map((purchase, index) => (
-                        <div key={index} style={{ borderBottom: '1px solid #ccc', marginBottom: '15px', paddingBottom: '10px' }}>
-                            <p><strong>Total:</strong> ₹{purchase.totalAmount}</p>
-                            <ul>
-                                {purchase.items.map((item, i) => (
-                                    <li key={i}>
-                                        {item.product} (x{item.quantity}) - ₹{item.price}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))
-                ) : (
-                    <p>No previous purchases found.</p>
-                )}
             </div>
-            </div>
-
-            
             {overlayVisible && (
                 <div className="overlay" id="myOverlay" style={{display:'block'}}>
                     <div id="productInput">
@@ -154,6 +118,7 @@ export default function Shop() {
                     </div>
                 </div>
             )}
+            </div>
         </div>
     );
 }
