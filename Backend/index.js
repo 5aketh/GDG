@@ -27,8 +27,7 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use("/auth", authRoutes);
-app.use("/chat", apiLimiter, chatbotRoutes);
+app.use("/auth", apiLimiter, authRoutes);
 app.use("/chat", apiLimiter, chatbotRoutes);
 // app.use("/shop", shopRoutes);
 
