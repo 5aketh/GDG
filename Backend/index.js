@@ -29,6 +29,7 @@ app.use(cookieParser());
 
 app.use("/auth", authRoutes);
 app.use("/chat", apiLimiter, chatbotRoutes);
+app.use("/chat", apiLimiter, chatbotRoutes);
 // app.use("/shop", shopRoutes);
 
 app.get("/", (req,res)=>{
