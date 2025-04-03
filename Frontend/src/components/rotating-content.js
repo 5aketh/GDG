@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 
-export default function RotatingContent() {
+function RotatingContent() {
   const cuboidRef = useRef(null);
   const [rotateY, setRotateY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -178,3 +178,5 @@ export default function RotatingContent() {
     </div>
   );
 }
+
+export default RotatingContent;

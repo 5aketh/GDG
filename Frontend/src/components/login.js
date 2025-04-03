@@ -1,52 +1,50 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+    const [identifier, setIdentifier] = useState("");
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState();
+    const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
+    const isEmail = (input) => /\S+@\S+\.\S+/.test(input);
+    const isPhone = (input) => /^\d{10}$/.test(input);
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+    const handleShowPasswordToggle = () => {
+      setShowPassword(!showPassword);
+    };
 
-  const handleShowPasswordToggle = () => {
-    setShowPassword(!showPassword);
-  };
+    const handleSubmit = async (e) => {
+      setIsSubmitting(true);
+      e.preventDefault();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setError('');
-    setIsSubmitting(true);
+      if (!isEmail(identifier) && !isPhone(identifier)) {
+          setError("Please enter a valid email or phone number");
+          setIsSubmitting(false);
+          return;
+      }
 
-    if (!username) {
-      setError('Username is required.');
-      setIsSubmitting(false);
-      return;
-    }
-    if (!password) {
-      setError('Password is required.');
-      setIsSubmitting(false);
-      return;
-    }
+      const loginType = isEmail(identifier) ? "email" : "phone";
 
-    // Simulate API call
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log('Simulated login successful');
-      // Redirect or set user session
-    } catch (err) {
-      setError('Could not connect to the server.');
-      console.error('Login error:', err);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+      try {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, { loginType, identifier, password }, { withCredentials: true });
+        const data = response.data
+        if (data){
+            navigate('/');  // Redirect to home
+        } else {
+            setError(data.message);
+        }
+      } catch (error) {
+        // console.error("Login failed", error);
+        setError("Invalid Credentials")
+      } finally {
+          setIsSubmitting(false);
+      }
+
+    };
 
   return (
       <div className="loginbody">
@@ -63,9 +61,9 @@ function Login() {
                 <input
                 type="text"
                 id="username"
-                placeholder="Username"
-                value={username}
-                onChange={handleUsernameChange}
+                placeholder="Enter Email or Phone Number"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
                 required
                 aria-label="Username"
                 />
@@ -77,7 +75,7 @@ function Login() {
                 id="password"
                 placeholder="Password"
                 value={password}
-                onChange={handlePasswordChange}
+                onChange={(e) => setPassword(e.target.value)}
                 required
                 aria-label="Password"
                 />
