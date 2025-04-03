@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import axios from "axios";
 
 export default function Chatbot() {
     const chatBoxRef = useRef(null);
@@ -15,8 +16,27 @@ export default function Chatbot() {
     const userProfilePic = "https://cdn-icons-png.flaticon.com/512/848/848006.png";
 
     useEffect(() => {
+        const fetchChats = async () => {
+            try {
+                const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/chat/history`, { withCredentials: true });
+                displayHistory(res.data.chats);
+            } catch (error) {
+                // console.error('Failed to load chat history', error);
+            }
+        };
+        fetchChats();
+    }, []);
+
+    useEffect(() => {
         scrollToBottom();
     }, [messages]);
+
+    const displayHistory = (chatHistory) => {
+        chatHistory.forEach((chat) => {
+            setMessages(prevMessages => [...prevMessages, { sender: 'user', text: chat.messages[0].text }]);
+            setMessages(prevMessages => [...prevMessages, { sender: 'bot', text: chat.messages[1].text }]);
+        });
+    };
 
     const scrollToBottom = () => {
         if (chatBoxRef.current) {
@@ -104,29 +124,19 @@ export default function Chatbot() {
     };
 
     async function getBotResponse(userMessage, attachedFile) {
-        // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
         try {
-            const formData = new FormData();
-            formData.append('message', userMessage);
-            if (attachedFile) {
-                // Convert Data URL to Blob for sending
-                const fileBlob = await fetch(attachedFile.dataURL).then(r => r.blob());
-                formData.append('file', fileBlob, attachedFile.name);
-            }
+            // const formData = new FormData();
+            // formData.append('message', userMessage);
+            // if (attachedFile) {
+            //     // Convert Data URL to Blob for sending
+            //     const fileBlob = await fetch(attachedFile.dataURL).then(r => r.blob());
+            //     formData.append('file', fileBlob, attachedFile.name);
 
-            const response = await fetch('YOUR_API_ENDPOINT', {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-
-            // Adjust based on your API response structure
-            return data;
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/chat/send`, {
+                message: userMessage
+            }, { withCredentials: true });
+            
+            return response.data.response;
 
         } catch (error) {
             console.error('Error fetching bot response:', error);

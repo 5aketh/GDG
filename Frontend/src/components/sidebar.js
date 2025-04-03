@@ -34,7 +34,7 @@ export default function Sidebar() {
         }
       };
     } else {
-      console.error("Menu button not found.");
+      // console.error("Menu button not found.");
     }
   }, []);
 
@@ -46,7 +46,7 @@ export default function Sidebar() {
             <p style={{ marginLeft: '5vw', fontFamily: "Kalam, cursive", fontWeight: 700, fontStyle: 'normal' }}>अन्नदाता</p>
           </div>
           <nav className="curved-nav">
-            <a href="/home">Home</a>
+            <a href="/">Home</a>
             <div className="dropdown">
               <a href="/" className="dropbtn">Tools</a>
               <div className="dropdown-content">
