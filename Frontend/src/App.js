@@ -32,9 +32,9 @@ function App(){
         <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet" />
       </head>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/create" element={<Create />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/support" element={<Support />} />
         <Route path="/shop/buy" element={<Shop2Buy />} />
         <Route path="/shop/sell" element={<Shop2Sell />} />
