@@ -2,19 +2,19 @@
     background-color: rgba(30, 30, 30, 0.6);
     display: flex;
     position: fixed;
-    top: 30vh;
+    top: 32vh;
     left: 11vw;
     border-radius: 8px;
-    width: 80%; /* Adjust as needed for a smaller container */
+    width: 80%; 
     height: 65vh;
     overflow: auto;
-    max-width: 1200px; /* Optional: set a maximum width */
-    margin-top: 20px; /* Add some top margin */
-    margin-bottom: 20px; /* Add some bottom margin */
+    max-width: 1200px; 
+    margin-top: 20px; 
+    margin-bottom: 20px; 
 }
 
 .side-menu {
-    width: 20%; /* Adjust side menu width */
+    width: 20%; 
     height: 75vh;
     top: 0px;
     border-radius: 8px;
@@ -170,16 +170,16 @@ a:hover {
 }
 
 .container::-webkit-scrollbar, .contact-form textarea::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
+    width: 8px; 
 }
 
 .container::-webkit-scrollbar-track, .contact-form textarea::-webkit-scrollbar-track {
-    background-color: #333; /* Dark background for the track */
+    background-color: #333; 
 }
 
 .container::-webkit-scrollbar-thumb, .contact-form textarea::-webkit-scrollbar-thumb {
-    background-color: #555; /* Slightly lighter dark color for the thumb */
-    border-radius: 4px; /* Rounded corners for the thumb */
+    background-color: #555; 
+    border-radius: 4px; 
 }
 
 .container::-webkit-scrollbar-thumb:hover, .contact-form textarea::-webkit-scrollbar-thumb:hover {

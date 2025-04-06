@@ -1,5 +1,8 @@
 .search-container {
-    background-color: #333;
+    background-color: #ffffff00;
+    position: fixed;
+    top: 28vh;
+    left: 3vw;
     width: 94.5vw;
     color: white;
     text-align: center;
@@ -15,9 +18,14 @@
 }
 
 .shop-container {
-    width: 90%;
-    max-width: 1200px;
+    width: 100%;
+    position: fixed;
+    top: 40vh;
+    left: 3vw;
+    width: 93.7vw;
+    height: 50vh;
     margin: 20px auto;
+    overflow: auto;
 }
 
 .product-grid {
@@ -29,6 +37,7 @@
 .product {
     background-color: white;
     border: 1px solid #ddd;
+    max-width: 25vw;
     border-radius: 8px;
     height: 60vh;
     overflow: hidden;
@@ -106,26 +115,26 @@ footer {
 }
 
 .overlay {
-    position: fixed; /* Fixed position covers the entire viewport */
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    display: none; /* Initially hidden */
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically */
+    display: none; 
+    justify-content: center; 
+    align-items: center; 
     z-index: 1000;
 }
   
 #productInput {
-    position: fixed; /* Fixed position covers the entire viewport */
+    position: fixed; 
     top: 20vh;
-    left: 40vw;
+    left: 30vw;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    width: 30vw; /* Adjust as needed */
+    width: 30vw; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -136,21 +145,21 @@ footer {
 }
   
 #productInput input, #productInput textarea {
-    width: calc(100% - 12px); /* Adjust for padding and border */
+    width: calc(100% - 12px); 
     padding: 6px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* Include padding and border in width */
+    box-sizing: border-box; 
 }
   
 #productInput textarea {
-    resize: vertical; /* Allow vertical resizing */
+    resize: vertical; 
     min-height: 100px;
 }
   
 #productInput button {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50; 
     color: white;
     padding: 10px 15px;
     border: none;
@@ -163,11 +172,27 @@ footer {
     background-color: #3e8e41;
 }
   
-  /* Optional: Style the close button differently */
 #productInput button:last-child {
-    background-color: #bbb; /* Grey */
+    background-color: #bbb; 
 }
   
 #productInput button:last-child:hover {
     background-color: #999;
-  }
+}
+
+.shop-container::-webkit-scrollbar, .contact-form textarea::-webkit-scrollbar {
+    width: 8px; 
+}
+
+.shop-container::-webkit-scrollbar-track, .contact-form textarea::-webkit-scrollbar-track {
+    background-color: #a9a9a9; 
+}
+
+.shop-container::-webkit-scrollbar-thumb, .contact-form textarea::-webkit-scrollbar-thumb {
+    background-color: #fff; 
+    border-radius: 4px; 
+}
+
+.shop-container::-webkit-scrollbar-thumb:hover, .contact-form textarea::-webkit-scrollbar-thumb:hover {
+    background-color: #fff; 
+}

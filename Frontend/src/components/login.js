@@ -103,7 +103,7 @@ function Login() {
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <div className="form-footer" style={{ marginRight: '20px' }}>
                 <a href="/forgot-password">Forgot Password?</a>
-                <a href="/signup">Sign Up</a>
+                <a href="/create">Sign Up</a>
                 </div>
                 <button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? 'Logging In...' : 'Sign In'}

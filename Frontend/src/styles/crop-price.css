@@ -1,10 +1,29 @@
-/* body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-    margin: 20px;
-    background-color: #f8f9fa; 
-    color: #333; 
-    line-height: 1.6;
-} */
+#state {
+    color: #f2f2f2;
+    padding: 1vw;
+    border-radius: 1vw;
+    background-color: rgba(30, 30, 30, 0.6);
+}
+
+#district {
+    margin-left: 5vw;
+    color: #f2f2f2;
+    padding: 1vw;
+    border-radius: 1vw;
+    background-color: rgba(30, 30, 30, 0.6);
+}
+
+.search-button {
+    background-color: rgba(30, 30, 30, 0);
+    position: fixed;
+    top: 39vh;
+    left: 87vw;
+    border: none;
+}
+
+.search-button:hover {
+    cursor: pointer;
+}
 
 .crop-prices-h1 {
     text-align: center;
@@ -12,18 +31,38 @@
     margin-bottom: 25px;
 }
 
-.table-container {
-    width: 40vw;
-    height: 50vh;
+.input-container {
+    width: 80vw;
+    height: 5vh;
+    padding: 2vw;
     margin: 30px auto;
     border-radius: 12px;
-    overflow: auto;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    overflow: hidden;
     border: 1px solid #ddd;    
     background-color: rgba(30, 30, 30, 0.6);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
     position: fixed;
-    top: 35vh;
-    left: 30vw;
+    top: 30vh;
+    left: 8vw;
+}
+
+.table-container {
+    width: 84vw;
+    height: 50vh;
+    margin: 30px auto;
+    border-radius: 12px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    overflow: auto;
+    border: 1px solid #ddd;    
+    color: #ddd;
+    background-color: rgba(30, 30, 30, 0.6);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    position: fixed;
+    top: 42vh;
+    left: 8vw;
 }
 
 table {
@@ -41,7 +80,7 @@ th, td {
 }
 
 th {
-    background-color: #4f7531;
+    background-color: rgba(30, 30, 30, 0.8);
     color: white;
     position: sticky;
     top: 0;
@@ -50,12 +89,14 @@ th {
     font-weight: bold;
 }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+tr:nth-child() {
+    background-color: rgba(30, 30, 30, 0.6);
+    color: #ddd;
 }
 
 tr:hover {
     background-color: #e7f7d5;
+    color: black;
     transition: background-color 0.3s ease-in-out;
 }
 
